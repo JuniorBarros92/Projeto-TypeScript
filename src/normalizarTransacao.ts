@@ -1,4 +1,5 @@
 
+import moedaParaNumero from "./moedaParaNumero";
 declare global {
   interface Window {
     transacaoApi: TransacaoApi;
@@ -47,6 +48,7 @@ const parseValor = (valorStr: string): number | null => {
 
 export default function normalizarTransacao(transacao: TransacaoApi): TransacaoNormalizada {
   const valor = parseValor(transacao["Valor (R$)"]);
+  console.log("normalizarTransacao chamada com:", transacao["Valor (R$)"], valor);
 
   return {
     nome: transacao.Nome,
@@ -54,7 +56,7 @@ export default function normalizarTransacao(transacao: TransacaoApi): TransacaoN
     data: transacao.Data,
     status: transacao.Status,
     email: transacao.Email,
-    valor,
+    valor: moedaParaNumero(transacao["Valor (R$)"]),
     moeda: transacao["Valor (R$)"].includes("R$") ? "BRL" : "OUTRO",
     pagamento: transacao["Forma de Pagamento"],
     novo: transacao["Cliente Novo"] === 1,

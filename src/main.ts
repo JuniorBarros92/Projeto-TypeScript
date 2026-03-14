@@ -4,7 +4,7 @@ import normalizarTransacao from "./normalizarTransacao";
 
 
 async function handleData() {
-  const data = await fetchData<TransacaoApi[]>("https://api.origamid.dev/json/transacoes.json");
+  const data = await fetchData<TransacaoApi[]>("https://api.origamid.dev/json/transacoes.json?_=" + Date.now());
 
   if (!data) return;
 
